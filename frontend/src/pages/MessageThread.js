@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import API_BASE from "../api";
 
 function MessageThread() {
   const { userId } = useParams();  // URL'den receiver ID
@@ -9,7 +10,7 @@ function MessageThread() {
   const access = localStorage.getItem("access");
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/messages/?user_id=${userId}`, {
+    fetch(`${API_BASE}/api/messages/?user_id=${userId}`, {
       headers: { Authorization: "Bearer " + access }
     })
       .then(res => res.json())
@@ -17,7 +18,7 @@ function MessageThread() {
   }, [userId]);
 
   const handleSend = () => {
-    fetch("http://localhost:8000/api/messages/", {
+    fetch(`${API_BASE}/api/messages/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

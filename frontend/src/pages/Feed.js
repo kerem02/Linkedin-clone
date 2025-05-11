@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import CommentSection from "../components/CommentSection";
+import API_BASE from "../api";
 
 function Feed() {
   const [posts, setPosts] = useState([]);
@@ -21,7 +22,7 @@ function Feed() {
     };
 
     const handleSaveEdit = () => {
-  fetch(`http://localhost:8000/api/posts/${editingPostId}/`, {
+  fetch(`${API_BASE}/api/posts/${editingPostId}/`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -41,7 +42,7 @@ function Feed() {
 };
 
     const handleDelete = (postId) => {
-    fetch(`http://localhost:8000/api/posts/${postId}/`, {
+    fetch(`${API_BASE}/api/posts/${postId}/`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + access
@@ -61,14 +62,14 @@ function Feed() {
   const access = localStorage.getItem("access");
 
   // Fetch posts
-  fetch("http://localhost:8000/api/posts/", {
+  fetch(`${API_BASE}/api/posts/`, {
     headers: { Authorization: "Bearer " + access }
   })
     .then(res => res.json())
     .then(data => setPosts(data));
 
   // Fetch current user profile
-  fetch("http://localhost:8000/api/profile/", {
+  fetch(`${API_BASE}/api/profile/`, {
     headers: { Authorization: "Bearer " + access }
   })
     .then(res => res.json())
@@ -79,7 +80,7 @@ function Feed() {
   const handlePost = () => {
     if (!newPost.trim()) return;
 
-    fetch("http://localhost:8000/api/posts/", {
+    fetch(`${API_BASE}/api/posts/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

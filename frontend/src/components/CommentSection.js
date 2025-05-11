@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_BASE from "../api";
 
 function CommentSection({ postId }) {
   const [comments, setComments] = useState([]);
@@ -7,7 +8,7 @@ function CommentSection({ postId }) {
   const access = localStorage.getItem("access");
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/comments/?post_id=${postId}`, {
+    fetch(`${API_BASE}/api/comments/?post_id=${postId}`, {
       headers: { Authorization: "Bearer " + access }
     })
       .then(res => res.json())
@@ -17,7 +18,7 @@ function CommentSection({ postId }) {
   const handleComment = () => {
     if (!newComment.trim()) return;
 
-    fetch("http://localhost:8000/api/comments/", {
+    fetch(`${API_BASE}/api/comments/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

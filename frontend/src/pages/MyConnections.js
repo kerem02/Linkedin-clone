@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import API_BASE from "../api";
 
 function MyConnections() {
   const [connections, setConnections] = useState([]);
@@ -7,7 +8,7 @@ function MyConnections() {
   useEffect(() => {
     const access = localStorage.getItem("access");
 
-    fetch("http://localhost:8000/api/connections/accepted/", {
+    fetch(`${API_BASE}/api/connections/accepted/`, {
       headers: {
         Authorization: "Bearer " + access
       }

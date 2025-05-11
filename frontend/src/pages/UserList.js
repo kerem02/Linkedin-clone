@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import API_BASE from "../api";
 
 function UserList() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const access = localStorage.getItem("access");
-    fetch("http://localhost:8000/api/users/", {
+    fetch(`${API_BASE}/api/users/`, {
       headers: {
         Authorization: "Bearer " + access
       }
@@ -16,7 +17,7 @@ function UserList() {
 
   const handleConnect = (receiverId) => {
     const access = localStorage.getItem("access");
-    fetch("http://localhost:8000/api/connect/", {
+    fetch(`${API_BASE}/api/connect/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

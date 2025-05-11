@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_BASE from "../api";
 
 function ConnectionRequests() {
   const [requests, setRequests] = useState([]);
@@ -6,7 +7,7 @@ function ConnectionRequests() {
   useEffect(() => {
     const access = localStorage.getItem("access");
 
-    fetch("http://localhost:8000/api/connections/incoming/", {
+    fetch(`${API_BASE}/api/connections/incoming/`, {
       headers: {
         Authorization: "Bearer " + access
       }
@@ -18,7 +19,7 @@ function ConnectionRequests() {
   const handleAction = (id, action) => {
     const access = localStorage.getItem("access");
 
-    fetch("http://localhost:8000/api/connections/incoming/", {
+    fetch(`${API_BASE}/api/connections/incoming/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_BASE from "../api";
 
 function AdminFlaggedJobs() {
   const [jobs, setJobs] = useState([]);
@@ -6,7 +7,7 @@ function AdminFlaggedJobs() {
   const access = localStorage.getItem("access");
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/admin/jobs/", {
+    fetch(`${API_BASE}/api/admin/jobs/`, {
       headers: { Authorization: "Bearer " + access }
     })
       .then(res => res.json())
@@ -14,7 +15,7 @@ function AdminFlaggedJobs() {
   }, []);
 
   const handleDelete = (jobId) => {
-    fetch(`http://localhost:8000/api/admin/jobs/${jobId}/`, {
+    fetch(`${API_BASE}/api/admin/jobs/${jobId}/`, {
       method: "DELETE",
       headers: { Authorization: "Bearer " + access }
     })

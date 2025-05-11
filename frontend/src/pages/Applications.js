@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_BASE from "../api";
 
 function Applications() {
   const [applications, setApplications] = useState([]);
@@ -10,7 +11,7 @@ function Applications() {
     const access = localStorage.getItem("access");
 
     if (access) {
-      fetch("http://localhost:8000/api/profile/", {
+      fetch(`${API_BASE}/api/profile/`, {
         headers: {
           Authorization: "Bearer " + access
         }
@@ -24,7 +25,7 @@ function Applications() {
           }
         });
 
-      fetch("http://localhost:8000/api/applications/", {
+      fetch(`${API_BASE}/api/applications/`, {
         headers: {
           Authorization: "Bearer " + access
         }

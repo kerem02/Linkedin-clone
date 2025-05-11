@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_BASE from "../api";
 
 function EditProfile() {
   const [bio, setBio] = useState("");
@@ -10,7 +11,7 @@ function EditProfile() {
   useEffect(() => {
     const access = localStorage.getItem("access");
 
-    fetch("http://localhost:8000/api/profile/", {
+    fetch(`${API_BASE}/api/profile/`, {
       headers: {
         Authorization: "Bearer " + access
       }
@@ -26,7 +27,7 @@ function EditProfile() {
   const handleSubmit = () => {
     const access = localStorage.getItem("access");
 
-    fetch("http://localhost:8000/api/update-profile/", {
+    fetch(`${API_BASE}/api/update-profile/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

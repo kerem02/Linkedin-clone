@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import API_BASE from "../api";
 
 
 function Profile() {
@@ -10,7 +11,7 @@ function Profile() {
   useEffect(() => {
     const access = localStorage.getItem("access");
     if (access) {
-      fetch("http://localhost:8000/api/profile/", {
+      fetch(`${API_BASE}/api/profile/`, {
         headers: {
           Authorization: "Bearer " + access
         }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_BASE from "../api";
 
 function JobList() {
   const [jobs, setJobs] = useState([]);
@@ -9,7 +10,7 @@ function JobList() {
 
     // Kullanıcı profilini çek
     if (access) {
-      fetch("http://localhost:8000/api/profile/", {
+      fetch(`${API_BASE}/api/profile/`, {
         headers: {
           Authorization: "Bearer " + access,
         },
@@ -19,7 +20,7 @@ function JobList() {
     }
 
     // Job ilanlarını çek
-    fetch("http://localhost:8000/api/job-list/")
+    fetch(`${API_BASE}/api/job-list/`)
       .then((res) => res.json())
       .then((data) => setJobs(data));
   }, []);
@@ -28,7 +29,7 @@ function JobList() {
   const [role, setRole] = useState("");
 
 useEffect(() => {
-  fetch("http://localhost:8000/api/profile/", {
+  fetch(`${API_BASE}/api/profile/`, {
     headers: { Authorization: "Bearer " + localStorage.getItem("access") }
   })
     .then(res => res.json())
@@ -36,7 +37,7 @@ useEffect(() => {
 }, []);
 
   const handleFlag = (jobId) => {
-  fetch(`http://localhost:8000/api/jobs/${jobId}/flag/`, {
+  fetch(`${API_BASE}/api/jobs/${jobId}/flag/`, {
     method: "POST",
     headers: {
       Authorization: "Bearer " + localStorage.getItem("access")
@@ -50,7 +51,7 @@ useEffect(() => {
   const handleApply = (jobId) => {
     const access = localStorage.getItem("access");
 
-    fetch("http://localhost:8000/api/apply/", {
+    fetch(`${API_BASE}/api/apply/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

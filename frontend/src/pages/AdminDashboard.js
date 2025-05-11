@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_BASE from "../api";
 
 function AdminDashboard() {
   const [jobs, setJobs] = useState([]);
@@ -10,7 +11,7 @@ function AdminDashboard() {
     const access = localStorage.getItem("access");
 
     if (access) {
-      fetch("http://localhost:8000/api/profile/", {
+      fetch(`${API_BASE}/api/profile/`, {
         headers: {
           Authorization: "Bearer " + access,
         },
@@ -24,7 +25,7 @@ function AdminDashboard() {
           }
         });
 
-      fetch("http://localhost:8000/api/admin/jobs/", {
+      fetch(`${API_BASE}/api/admin/jobs/`, {
         headers: {
           Authorization: "Bearer " + access,
         },
@@ -36,7 +37,7 @@ function AdminDashboard() {
 
   const handleDelete = (jobId) => {
     const access = localStorage.getItem("access");
-    fetch(`http://localhost:8000/api/admin/jobs/${jobId}/`, {
+    fetch(`${API_BASE}/api/admin/jobs/${jobId}/`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + access,
