@@ -1,1 +1,2 @@
-web: gunicorn Linkedin_Lite.wsgi:application --chdir backend
+web: gunicorn backend.wsgi:application
+
