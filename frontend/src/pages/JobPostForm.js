@@ -47,16 +47,77 @@ function JobPostForm() {
       .catch(() => alert("Job post failed."));
   };
 
-  if (!data) return <p>Loading...</p>;
+  if (!data) {
+    return (
+      <div className="container" style={{ textAlign: 'center', paddingTop: '40px' }}>
+        <div className="card">Loading...</div>
+      </div>
+    );
+  }
 
   return (
-    <div>
-      <h2>Post a Job</h2>
-      <input placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} /><br />
-      <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} /><br />
-      <input placeholder="Company" value={company} onChange={(e) => setCompany(e.target.value)} /><br />
-      <input placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} /><br />
-      <button onClick={handleSubmit}>Submit</button>
+    <div className="container" style={{ maxWidth: '800px', padding: '40px 20px' }}>
+      <div className="card">
+        <h2 style={{ 
+          textAlign: 'center', 
+          color: 'var(--primary-color)',
+          marginBottom: '30px'
+        }}>
+          Post a New Job
+        </h2>
+
+        <div style={{ marginBottom: '20px' }}>
+          <input 
+            placeholder="Job Title" 
+            value={title} 
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
+
+        <div style={{ marginBottom: '20px' }}>
+          <textarea 
+            placeholder="Job Description" 
+            value={description} 
+            onChange={(e) => setDescription(e.target.value)}
+            style={{
+              minHeight: '150px',
+              resize: 'vertical'
+            }}
+          />
+        </div>
+
+        <div style={{ marginBottom: '20px' }}>
+          <input 
+            placeholder="Company Name" 
+            value={company} 
+            onChange={(e) => setCompany(e.target.value)}
+          />
+        </div>
+
+        <div style={{ marginBottom: '30px' }}>
+          <input 
+            placeholder="Location" 
+            value={location} 
+            onChange={(e) => setLocation(e.target.value)}
+          />
+        </div>
+
+        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+          <button 
+            className="btn-primary" 
+            onClick={handleSubmit}
+            style={{ minWidth: '150px' }}
+          >
+            Post Job
+          </button>
+          <button 
+            onClick={() => navigate('/profile')}
+            style={{ minWidth: '150px' }}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

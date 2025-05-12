@@ -6,6 +6,7 @@ function EditProfile() {
   const [bio, setBio] = useState("");
   const [experience, setExperience] = useState("");
   const [education, setEducation] = useState("");
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +22,9 @@ function EditProfile() {
         setBio(data.bio || "");
         setExperience(data.experience || "");
         setEducation(data.education || "");
-      });
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
   }, []);
 
   const handleSubmit = () => {
@@ -37,30 +40,108 @@ function EditProfile() {
     })
       .then((res) => res.json())
       .then((data) => {
-        alert(data.message);
         navigate("/profile");
       });
   };
 
+  if (loading) {
+    return (
+      <div className="container" style={{ maxWidth: '800px', padding: '40px 20px' }}>
+        <div className="card" style={{ textAlign: 'center', padding: '30px' }}>
+          Loading...
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <h2>Edit Profile</h2>
-      <textarea
-        placeholder="Bio"
-        value={bio}
-        onChange={(e) => setBio(e.target.value)}
-      /><br />
-      <textarea
-        placeholder="Experience"
-        value={experience}
-        onChange={(e) => setExperience(e.target.value)}
-      /><br />
-      <textarea
-        placeholder="Education"
-        value={education}
-        onChange={(e) => setEducation(e.target.value)}
-      /><br />
-      <button onClick={handleSubmit}>Save Changes</button>
+    <div className="container" style={{ maxWidth: '800px', padding: '40px 20px' }}>
+      <div className="card">
+        <h2 style={{ 
+          textAlign: 'center', 
+          color: 'var(--primary-color)',
+          marginBottom: '30px'
+        }}>
+          Edit Your Profile
+        </h2>
+
+        <div style={{ marginBottom: '25px' }}>
+          <label style={{
+            display: 'block',
+            marginBottom: '8px',
+            color: 'var(--text-color)',
+            fontWeight: '500'
+          }}>
+            Bio
+          </label>
+          <textarea
+            placeholder="Tell us about yourself..."
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            style={{
+              minHeight: '100px'
+            }}
+          />
+        </div>
+
+        <div style={{ marginBottom: '25px' }}>
+          <label style={{
+            display: 'block',
+            marginBottom: '8px',
+            color: 'var(--text-color)',
+            fontWeight: '500'
+          }}>
+            Experience
+          </label>
+          <textarea
+            placeholder="Share your work experience..."
+            value={experience}
+            onChange={(e) => setExperience(e.target.value)}
+            style={{
+              minHeight: '150px'
+            }}
+          />
+        </div>
+
+        <div style={{ marginBottom: '30px' }}>
+          <label style={{
+            display: 'block',
+            marginBottom: '8px',
+            color: 'var(--text-color)',
+            fontWeight: '500'
+          }}>
+            Education
+          </label>
+          <textarea
+            placeholder="List your educational background..."
+            value={education}
+            onChange={(e) => setEducation(e.target.value)}
+            style={{
+              minHeight: '100px'
+            }}
+          />
+        </div>
+
+        <div style={{ 
+          display: 'flex',
+          gap: '15px',
+          justifyContent: 'center'
+        }}>
+          <button 
+            className="btn-primary"
+            onClick={handleSubmit}
+            style={{ minWidth: '150px' }}
+          >
+            💾 Save Changes
+          </button>
+          <button 
+            onClick={() => navigate('/profile')}
+            style={{ minWidth: '150px' }}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -66,39 +66,97 @@ useEffect(() => {
   };
 
   return (
-    <div>
-      <h2>Job Listings</h2>
-      {jobs.length === 0 && <p>No jobs available.</p>}
-      {jobs.map((job) => (
-        <div
-          key={job.id}
-          style={{
-            border: "1px solid #ccc",
-            margin: "10px",
-            padding: "10px",
-          }}
-        >
-          <h3>{job.title}</h3>
-          <p>
-            <strong>Company:</strong> {job.company}
-          </p>
-          <p>
-            <strong>Location:</strong> {job.location}
-          </p>
-          <p>{job.description}</p>
-          <p>
-            <em>Posted by {job.posted_by}</em>
-          </p>
-
-          {/* Sadece 'user' rolü için Apply butonu */}
-          {profile?.role === "user" && (
-  <>
-    <button onClick={() => handleApply(job.id)}>Apply</button>
-    <button onClick={() => handleFlag(job.id)}>🚩 Report Job</button>
-  </>
-)}
+    <div className="container">
+      <h2 style={{ 
+        textAlign: 'center', 
+        color: 'var(--primary-color)',
+        marginBottom: '30px'
+      }}>
+        Job Listings
+      </h2>
+      
+      {jobs.length === 0 && (
+        <div className="card" style={{ textAlign: 'center' }}>
+          <p>No jobs available.</p>
         </div>
-      ))}
+      )}
+      
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', 
+        gap: '20px' 
+      }}>
+        {jobs.map((job) => (
+          <div key={job.id} className="card">
+            <h3 style={{ 
+              color: 'var(--primary-color)',
+              marginTop: 0
+            }}>
+              {job.title}
+            </h3>
+            
+            <div style={{ marginBottom: '15px' }}>
+              <p style={{ 
+                margin: '5px 0',
+                display: 'flex',
+                alignItems: 'center'
+              }}>
+                <span style={{ marginRight: '8px' }}>🏢</span>
+                <strong>Company:</strong> {job.company}
+              </p>
+              <p style={{ 
+                margin: '5px 0',
+                display: 'flex',
+                alignItems: 'center'
+              }}>
+                <span style={{ marginRight: '8px' }}>📍</span>
+                <strong>Location:</strong> {job.location}
+              </p>
+            </div>
+            
+            <p style={{ 
+              margin: '15px 0',
+              padding: '10px',
+              background: 'var(--background-color)',
+              borderRadius: '4px'
+            }}>
+              {job.description}
+            </p>
+            
+            <p style={{ 
+              fontSize: '0.9em',
+              color: '#666',
+              fontStyle: 'italic',
+              marginBottom: '15px'
+            }}>
+              Posted by {job.posted_by}
+            </p>
+
+            {profile?.role === "user" && (
+              <div style={{ 
+                display: 'flex',
+                gap: '10px',
+                marginTop: 'auto'
+              }}>
+                <button 
+                  className="btn-primary"
+                  onClick={() => handleApply(job.id)}
+                  style={{ flex: 1 }}
+                >
+                  Apply Now
+                </button>
+                <button 
+                  className="btn-warning"
+                  onClick={() => handleFlag(job.id)}
+                  style={{ flex: 0 }}
+                >
+                  🚩
+                </button>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
